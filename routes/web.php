@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\IdeaController;
 
 /*
 |--------------------------------------------------------------------------
@@ -29,3 +30,17 @@ Route::middleware('auth')->group(function () {
 });
 
 require __DIR__.'/auth.php';
+/*
+Route::get('/ideas', function () {
+    return view('ideas.index');
+})->middleware(['auth', 'verified'])->name('idea.index');
+*/
+
+Route::get('/ideas', [IdeaController::class, 'index'])->name('idea.index');
+Route::get('/ideas/create', [IdeaController::class, 'create'])->name('idea.create');
+Route::post('/ideas/create', [IdeaController::class, 'store'])->name('idea.store');
+Route::get('/ideas/edit/{idea}', [IdeaController::class, 'edit'])->name('idea.edit');
+Route::put('/ideas/update/{idea}', [IdeaController::class, 'update'])->name('idea.update');
+Route::get('/ideas/{idea}', [IdeaController::class, 'show'])->name('idea.show');
+Route::delete('/ideas/{idea}', [IdeaController::class, 'delete'])->name('idea.delete');
+Route::put('/ideas/{idea}', [IdeaController::class, 'synchronizeLikes'])->name('idea.like');

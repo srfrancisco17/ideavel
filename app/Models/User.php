@@ -50,7 +50,14 @@ class User extends Authenticatable
         return $this->hasMany(Idea::class);
     }
 
-    public function ideasLiked(): BelongsToMany{
+    public function ideasLiked(): BelongsToMany
+    {
         return $this->belongsToMany(Idea::class);
+    }
+
+    public function ilikeIt($ideaId): bool{
+
+        return $this->ideasLiked()->where("idea_id", $ideaId)->exists();
+
     }
 }
