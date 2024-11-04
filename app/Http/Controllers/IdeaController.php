@@ -10,12 +10,13 @@ use Illuminate\View\View;
 
 class IdeaController extends Controller
 {
-    public function index():View{
+    public function index(Request $request): View{
 
         
         //$ideas = DB::table('ideas')->get();
 
-        $ideas = Idea::all();
+        //$ideas = Idea::all();
+        $ideas = Idea::myIdeas($request->filtro)->theBest($request->filtro)->get();
 
         return view("ideas.index", ['ideas' => $ideas]);
     }
